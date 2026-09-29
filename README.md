@@ -19,11 +19,11 @@ Le preview de production utilise un port distinct : `npm run build && npm run pr
 
 ## Docker et Coolify
 
-L’image est construite en deux étapes : Astro génère les fichiers statiques, puis Nginx les sert sur le port `80`. Depuis Coolify, connecter ce dépôt Git et choisir le build pack **Dockerfile**. Régler le **Base Directory** sur `/site`, le **Dockerfile Location** sur `/Dockerfile` et le port exposé sur `80`. Coolify utilise le chemin du Dockerfile relatif au répertoire de base.
+L’image est construite en deux étapes : Astro génère les fichiers statiques, puis Nginx les sert sur le port `80`. Depuis Coolify, connecter ce dépôt Git et choisir le build pack **Dockerfile**. Comme ce dépôt ne contient que le site, régler le **Base Directory** sur `/`, le **Dockerfile Location** sur `/Dockerfile` et le port exposé sur `80`. Coolify utilise le chemin du Dockerfile relatif au répertoire de base.
 
 Pour une adresse de réception du formulaire, définir `PUBLIC_CONTACT_EMAIL` comme argument de build Docker dans Coolify. Cette valeur devient publique dans le site compilé ; ne jamais y placer un secret. Laisser le champ vide conserve le récapitulatif téléchargeable.
 
-Tester localement avec `docker build -t lendrr-site ./site` puis `docker run --rm -p 8080:80 lendrr-site`, et ouvrir `http://localhost:8080`. La route `/health` sert au contrôle de santé du conteneur.
+Tester localement depuis la racine avec `docker build -t lendrr-site .` puis `docker run --rm -p 8080:80 lendrr-site`, et ouvrir `http://localhost:8080`. La route `/health` sert au contrôle de santé du conteneur.
 
 Les commandes de contrôle sont `npm run check`, `npm run build`, `npm run test:e2e` et `npm run test:visual`. `npm run test:visual:update` régénère les références Chromium après examen visuel. Le site est généré dans `dist/`.
 

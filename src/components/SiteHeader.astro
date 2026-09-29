@@ -1,0 +1,122 @@
+---
+import BrandMark from './BrandMark.astro';
+import ActionLink from './ActionLink.astro';
+import { navigation, siteContent } from '../data/site';
+const home = Astro.url.pathname === '/' ? '' : '/';
+---
+
+<header class="site-header" id="top">
+  <div class="header-shell">
+    <p class="brand-line">{siteContent.brandLine}</p>
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-controls="primary-navigation"
+      aria-expanded="false"
+      aria-label="Ouvrir le menu"
+      hidden
+    >
+      <span></span><span></span>
+    </button>
+    <nav class="primary-navigation" id="primary-navigation" aria-label="Navigation principale">
+      {navigation.map((link) => <a href={link.href.startsWith("#") ? home + link.href : link.href}>{link.label}</a>)}
+    </nav>
+    <ActionLink href={home + "#configurer"} class="header-cta">
+      <span class="cta-full">{siteContent.ctaPrimary}</span>
+      <span class="cta-compact">Démo</span>
+    </ActionLink>
+    <BrandMark class="header-brand" />
+  </div>
+</header>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const navigation = document.querySelector<HTMLElement>('#primary-navigation');
+  const compact = window.matchMedia('(max-width: 1023px)');
+
+  if (button && navigation) {
+    const setMenuMode = () => {
+      button.hidden = !compact.matches;
+      if (!compact.matches) {
+        button.setAttribute('aria-expanded', 'false');
+        button.setAttribute('aria-label', 'Ouvrir le menu');
+        navigation.hidden = false;
+      } else {
+        navigation.hidden = true;
+      }
+    };
+
+    setMenuMode();
+    compact.addEventListener('change', setMenuMode);
+
+    button.addEventListener('click', () => {
+      const expanded = button.getAttribute('aria-expanded') === 'true';
+      button.setAttribute('aria-expanded', String(!expanded));
+      button.setAttribute('aria-label', expanded ? 'Ouvrir le menu' : 'Fermer le menu');
+      navigation.hidden = expanded;
+    });
+
+    button.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        button.setAttribute('aria-expanded', 'false');
+        button.setAttribute('aria-label', 'Ouvrir le menu');
+        navigation.hidden = true;
+      }
+    });
+
+    navigation.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        if (compact.matches) {
+          button.setAttribute('aria-expanded', 'false');
+          button.setAttribute('aria-label', 'Ouvrir le menu');
+          navigation.hidden = true;
+          if (link.hash && link.pathname === location.pathname) document.getElementById(decodeURIComponent(link.hash.slice(1)))?.focus({ preventScroll: true });
+        }
+      });
+    });
+  }
+</script>
+
+<style>
+  .site-header { position: relative; z-index: var(--z-header); color: var(--color-on-dark); background: var(--color-ink-deep); }
+  .header-shell { width: calc(100% - 2 * var(--page-gutter)); min-height: var(--header-min-height); margin-inline: auto; display: flex; align-items: center; gap: clamp(.8rem, 1.65vw, 1.5rem); }
+  .header-shell :global(.header-brand) { margin-left: auto; }
+  .brand-line { max-width: 145px; margin: 0; font-family: var(--font-condensed); font-size: 0.625rem; font-weight: 600; letter-spacing: 0.12em; line-height: 1.15; text-transform: uppercase; }
+  .primary-navigation { margin-left: auto; display: flex; align-items: center; gap: clamp(.7rem, 1.9vw, 1.7rem); }
+  .primary-navigation a { min-height: 44px; display: inline-flex; align-items: center; font-size: 0.75rem; font-weight: 600; text-decoration: none; transition: color var(--duration-fast) var(--ease-out); }
+  .primary-navigation a:hover { color: var(--color-signal); }
+  .menu-toggle { width: 44px; height: 44px; align-items: center; justify-content: center; flex-direction: column; gap: 6px; padding: 0; border: 1px solid var(--color-paper); color: var(--color-paper); background: transparent; cursor: pointer; }
+  .menu-toggle[hidden] { display: none; }
+  .menu-toggle span { width: 18px; height: 2px; background: currentColor; transition: transform var(--duration-fast) var(--ease-out); }
+  .menu-toggle[aria-expanded="true"] span:first-child { transform: translateY(4px) rotate(45deg); }
+  .menu-toggle[aria-expanded="true"] span:last-child { transform: translateY(-4px) rotate(-45deg); }
+  .header-shell :global(.header-cta) { width: auto; flex: 0 0 auto; min-height: 40px; white-space: nowrap; font-size: 0.75rem; padding-inline: 0.85rem; }
+  .cta-compact { display: none; }
+
+  @media (max-width: 1023px) {
+    .header-shell { position: relative; gap: 0.9rem; }
+    .brand-line { display: none; }
+    .menu-toggle { display: flex; flex: 0 0 44px; }
+
+    .primary-navigation[hidden] { display: none; }
+    .primary-navigation:not([hidden]) { position: absolute; top: 100%; right: 0; left: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; padding: .5rem var(--page-gutter) 1rem; margin-inline: calc(-1 * var(--page-gutter)); background: var(--color-ink-deep); border-top: 1px solid rgb(243 241 234 / 20%); }
+    .primary-navigation a { border-bottom: 1px solid rgb(243 241 234 / 16%); }
+  }
+
+  @media (max-width: 540px) {
+    .header-shell { gap: 0.55rem; }
+    .header-shell :global(.header-brand) { width: clamp(116px, 37vw, 155px); }
+    .header-shell :global(.header-cta) { width: auto; flex: 0 0 auto; min-height: 40px; gap: 0.35rem; padding-inline: 0.58rem; font-size: 0.68rem; }
+    .header-shell :global(.header-cta .action-arrow) { width: 15px; }
+  }
+
+  @media (max-width: 359px) {
+    .header-shell :global(.header-brand) { width: 100px; }
+    .menu-toggle { width: 40px; height: 40px; flex: 0 0 40px; }
+    .header-shell { gap: 0.35rem; }
+    .header-shell :global(.header-cta) { gap: 0.25rem; padding-inline: 0.4rem; font-size: 0.62rem; }
+    .header-shell :global(.header-cta .action-arrow) { width: 13px; }
+    .cta-full { display: none; }
+    .cta-compact { display: inline; }
+  }
+</style>

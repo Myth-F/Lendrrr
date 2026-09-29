@@ -1,0 +1,11 @@
+.git
+.astro
+node_modules
+dist
+playwright-report
+test-results
+review
+.env
+.env.*
+!.env.example
+*.log

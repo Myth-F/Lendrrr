@@ -1,0 +1,36 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { productAssets } from '../data/assets';
+import CabinetScrollStory from './CabinetScrollStory.astro';
+---
+
+<section class="product-views section-pad section-rule" id="produit" tabindex="-1" aria-labelledby="product-views-title">
+  <div class="shell">
+    <SectionHeading title="Vue du produit" id="product-views-title" />
+    <CabinetScrollStory />
+    <div class="views-grid">
+      <figure class="view-card view-card--closed">
+        <div class="view-image"><img src={productAssets.heroClosed.src} width={productAssets.heroClosed.width} height={productAssets.heroClosed.height} alt="Casier de chantier LENDRR à seize compartiments, fermé et vu de trois quarts." loading="lazy" decoding="async" /></div>
+        <figcaption>Vue d’ensemble</figcaption>
+      </figure>
+      <figure class="view-card view-card--interior">
+        <div class="view-image"><img src={productAssets.interior.src} width={productAssets.interior.width} height={productAssets.interior.height} alt="Intérieur du casier LENDRR ouvert, avec deux compartiments chargés." loading="lazy" decoding="async" /></div>
+        <figcaption>Intérieur</figcaption>
+      </figure>
+      <figure class="view-card view-card--detail">
+        <div class="view-image"><img src={productAssets.material.src} width={productAssets.material.width} height={productAssets.material.height} alt="Détail de la finition anthracite texturée, de la bande orange et des poignées." loading="lazy" decoding="async" /></div>
+        <figcaption>Matières</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  .views-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(.6rem, 1.5vw, 1.5rem); margin-top: clamp(2rem, 4vw, 4rem); }
+  .view-card { min-width: 0; margin: 0; text-align: center; }
+  .view-image { height: clamp(240px, 27vw, 520px); display: grid; place-items: center; overflow: hidden; background: #e9e8e2; }
+  .view-image img { width: 100%; height: 100%; object-fit: contain; }
+  .view-card--detail .view-image img { object-fit: cover; }
+  figcaption { padding-top: .42rem; font-family: var(--font-condensed); font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+  @media (max-width: 767px) { .views-grid { grid-template-columns: 1fr; gap: 1.5rem; } .view-image { height: clamp(260px, 78vw, 440px); } }
+</style>

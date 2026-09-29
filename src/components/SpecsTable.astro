@@ -1,0 +1,73 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { cabinetCapacities, specificationRows, siteContent } from '../data/site';
+
+const compactCells = Array.from({ length: 12 });
+const fullHeightCells = Array.from({ length: 4 });
+---
+
+<section class="specs section-pad section-rule" id="caracteristiques" aria-labelledby="specs-title">
+  <div class="shell">
+    <SectionHeading title="Un ensemble, deux formats de rangement" id="specs-title" />
+    <p class="specs-intro">Le modèle présenté combine des compartiments compacts et des portes toute hauteur. Les dimensions indiquées sont celles d’un ensemble.</p>
+
+    <div class="capacity-layout">
+      <div class="capacity-total">
+        <span class="capacity-eyebrow">PAR ENSEMBLE</span>
+        <strong aria-label="Seize">16</strong>
+        <span>compartiments</span>
+      </div>
+      <div class="capacity-breakdown">
+        <div class="capacity-diagram" role="img" aria-label="Schéma du casier : douze compartiments compacts à gauche et quatre portes toute hauteur à droite.">
+          <div class="compact-compartments" aria-hidden="true">{compactCells.map(() => <i></i>)}</div>
+          <span class="capacity-divider" aria-hidden="true"></span>
+          <div class="full-height-compartments" aria-hidden="true">{fullHeightCells.map(() => <i></i>)}</div>
+        </div>
+        <div class="capacity-legend">
+          {cabinetCapacities.map((capacity) => (
+            <div class="capacity-type">
+              <strong>{capacity.count}</strong><span><b>{capacity.title}</b><small>{capacity.detail}</small></span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <dl class="specs-details" aria-label="Dimensions et caractéristiques du modèle">
+      {specificationRows.map(([label, value]) => (
+        <div><dt>{label}</dt><dd>{value}</dd></div>
+      ))}
+    </dl>
+    <p class="specification-note">{siteContent.productDisclaimer} {siteContent.productCaveat}</p>
+  </div>
+</section>
+
+<style>
+  .specs-intro { max-width: 62ch; margin: -.2rem 0 clamp(1.4rem,3vw,2.4rem); color: var(--color-text-muted); font-size: clamp(.95rem,1.15vw,1.1rem); line-height: 1.5; }
+  .capacity-layout { display: grid; grid-template-columns: minmax(180px,.42fr) minmax(0,1fr); align-items: center; gap: clamp(1.5rem,4vw,4rem); padding-block: 1.5rem; border-block: 1px solid var(--color-line); }
+  .capacity-total { min-height: 160px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding-right: 1rem; border-right: 1px solid var(--color-line); }
+  .capacity-eyebrow { color: var(--color-text-muted); font-family: var(--font-condensed); font-size: .78rem; font-weight: 800; letter-spacing: .15em; }
+  .capacity-total strong { margin: -.1em 0; font-family: var(--font-heading); font-size: clamp(5rem,10vw,8.5rem); font-weight: 650; letter-spacing: -.09em; line-height: .95; }
+  .capacity-total > span:last-child { font-size: 1rem; font-weight: 650; }
+  .capacity-breakdown { min-width: 0; display: grid; gap: 1rem; }
+  .capacity-diagram { min-width: 0; height: 150px; display: grid; grid-template-columns: minmax(0,3fr) 4px minmax(0,4fr); gap: 8px; align-items: stretch; padding: 9px; background: #e7e7e2; }
+  .compact-compartments { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); grid-template-rows: repeat(4,minmax(0,1fr)); gap: 5px; }
+  .full-height-compartments { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 5px; }
+  .capacity-diagram i { min-width: 0; border: 1px solid #89908f; background: #343a3d; }
+  .full-height-compartments i { background: #272c2f; }
+  .capacity-divider { background: var(--color-signal); }
+  .capacity-legend { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem,3vw,3rem); }
+  .capacity-type { min-width: 0; display: flex; align-items: baseline; gap: .7rem; }
+  .capacity-type > strong { flex: 0 0 auto; color: var(--color-signal); font-family: var(--font-heading); font-size: clamp(2.3rem,4vw,3.5rem); font-weight: 650; letter-spacing: -.06em; line-height: 1; }
+  .capacity-type span { display: grid; gap: .1rem; }
+  .capacity-type b { font-size: .87rem; line-height: 1.3; }
+  .capacity-type small { color: var(--color-text-muted); font-size: .76rem; line-height: 1.4; }
+  .specs-details { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 0; margin: clamp(1.4rem,3vw,2.25rem) 0 0; }
+  .specs-details div { min-width: 0; padding: .35rem clamp(.6rem,1.4vw,1.3rem) 0; border-left: 1px solid var(--color-line); }
+  .specs-details div:first-child { padding-left: 0; border-left: 0; }
+  .specs-details dt { color: var(--color-text-muted); font-family: var(--font-condensed); font-size: .73rem; font-weight: 800; letter-spacing: .08em; line-height: 1.25; text-transform: uppercase; }
+  .specs-details dd { margin: .45rem 0 0; font-size: .83rem; font-weight: 600; line-height: 1.4; }
+  .specification-note { margin: 1rem 0 0; color: var(--color-text-muted); font-size: .72rem; line-height: 1.45; }
+  @media(max-width:800px) { .capacity-layout { grid-template-columns: 145px minmax(0,1fr); gap: 1.25rem; } .capacity-total { min-height: 150px; } .capacity-diagram { height: 122px; } .specs-details { grid-template-columns: repeat(2,minmax(0,1fr)); row-gap: 1rem; } .specs-details div:nth-child(odd) { padding-left: 0; border-left: 0; } }
+  @media(max-width:520px) { .capacity-layout { grid-template-columns: 1fr; gap: 1.2rem; } .capacity-total { min-height: auto; display: grid; grid-template-columns: auto 1fr; align-items: baseline; column-gap: .65rem; padding: 0; border: 0; } .capacity-total strong { grid-row: span 2; font-size: 5rem; } .capacity-diagram { height: 106px; gap: 5px; padding: 7px; } .capacity-legend { gap: .75rem; } .capacity-type { align-items: flex-start; gap: .4rem; } .capacity-type > strong { font-size: 2rem; } .capacity-type b { font-size: .76rem; } .capacity-type small { font-size: .68rem; } .specs-details { column-gap: .7rem; } .specs-details div { padding-right: .35rem; } }
+</style>

@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+---
+<BaseLayout title="Presse — LENDRR vise les coûts cachés de l’outillage sur chantier" description="Moins de remplacements, moins de temps perdu : LENDRR développe un casier qui documente les retours d’outillage pour mieux maîtriser les coûts du chantier.">
+  <SiteHeader />
+  <main id="main" class="press shell">
+    <a class="back" href="/">← Retour au projet</a>
+    <article aria-labelledby="press-title">
+      <header>
+        <p class="eyebrow">Communiqué du projet · LENDRR</p>
+        <h1 id="press-title">L’outillage perdu coûte plus que son remplacement.</h1>
+        <p class="lead">En reliant chaque emprunt à un contrôle du retour, LENDRR vise à réduire les achats de remplacement et le temps de recherche d’outillage sur les chantiers.</p>
+      </header>
+      <div class="article-body">
+        <p>Une visseuse introuvable, un coffret rendu incomplet, un équipement détérioré découvert à la prise suivante : pour le chef de chantier et le responsable matériel, ces incidents mobilisent les équipes et compliquent l’organisation. La Fédération française du bâtiment souligne que les disparitions de matériel entraînent aussi désorganisation et retards, au-delà du coût de remplacement.</p>
+        <h2>La valeur ajoutée : éviter les coûts évitables</h2>
+        <p>La promesse économique de LENDRR est de limiter les dépenses d’outillage qu’une meilleure disponibilité et un retour vérifié pourraient éviter. Quand l’équipe retrouve le bon outil, complet et prêt à repartir, le chantier évite une recherche improductive ; quand un manque ou une dégradation est repéré à temps, le responsable peut vérifier la situation avant de racheter ou de relouer en urgence.</p>
+        <p>La valeur n’est donc pas le casier connecté en lui-même : c’est la réduction mesurable des achats de remplacement, des locations de dépannage et du temps de recherche. Le résultat dépendra des usages du site et devra être comparé au coût d’achat, d’installation et d’exploitation du système.</p>
+        <h2>Un maillon du parc matériel, avec un angle retour</h2>
+        <p>Le projet LENDRR développe un casier connecté pour le petit outillage partagé. Le parcours prévu associe l’emprunt à un utilisateur, puis documente la présence, la complétude et l’état apparent du matériel restitué à l’aide de capteurs et d’images. Une anomalie peut ainsi être signalée pour vérification avant la prochaine utilisation.</p>
+        <p>L’écosystème comprend déjà plusieurs réponses : inventaires et mouvements par QR code ou code-barres, logiciels de gestion de parc, étiquettes et passerelles de localisation, ainsi que des casiers de distribution connectés. L’OPPBTP décrit le suivi des sorties et retours avec Winstox ; Hilti propose ON!Track pour gérer les équipements de différentes marques et un casier connecté pour distribuer et suivre les stocks. Ce sont des solutions établies sur des besoins voisins : LENDRR ne se présente donc pas comme le premier casier connecté du marché.</p>
+        <p>Le positionnement que LENDRR veut éprouver est plus ciblé : documenter, au moment du retour dans le casier, la présence et l’état apparent de l’équipement partagé. Il vise les responsables matériel et chefs de chantier, en lien avec les équipes utilisatrices, les fournisseurs et mainteneurs du parc, et les outils de gestion déjà déployés. La capacité à compléter ces outils, la qualité du contrôle au retour et l’avantage économique restent à comparer en pilote ; aucune intégration n’est annoncée comme acquise.</p>
+        <h2>Un gain à chiffrer sur le terrain</h2>
+        <p>À titre d’illustration, cinq minutes de recherche évitées par jour pour vingt compagnons sur vingt jours représentent environ <strong>33 heures par mois</strong>. C’est du temps rendu disponible pour les travaux, pas automatiquement une économie de trésorerie. Les économies directes devront être établies à partir des achats et locations de remplacement réellement évités ; le gain net retranchera le coût du dispositif et de son exploitation.</p>
+        <p>Un pilote comparera la situation de départ et la période d’essai : dépenses de remplacement et de dépannage, temps consacré à chercher l’outillage, retours incomplets et matériel immobilisé. Le projet vise ainsi une question concrète pour l’entreprise : la meilleure maîtrise du parc matériel compense-t-elle le coût du casier sur ce chantier ?</p>
+        <a class="press-cta" href="/#configurer">Échanger sur un chantier pilote <span aria-hidden="true">→</span></a>
+      </div>
+      <footer class="sources">
+        <p>Sources métier</p>
+        <ul>
+          <li><a href="https://www.preventionbtp.fr/ressources/solutions/gerer-outils-et-materiels-grace-a-un-systeme-de-code-barres-ou-qr-code_5raSmtqvJfSXJB7csh5V8X">OPPBTP — Gestion du parc matériel, sorties et retours</a></li>
+          <li><a href="https://www.ffbatiment.fr/actualites-batiment/actualite-bam/recrudescence-vols-sur-chantier-des-solutions-existent">FFB — Coûts directs et désorganisation liés aux disparitions de matériel</a></li>
+          <li><a href="https://www.hilti.fr/content/hilti/E2/FR/fr/business/business/equipment/on-track.html">Hilti — ON!Track, gestion et suivi du parc matériel</a></li>
+          <li><a href="https://www.hilti.com/content/resources/purchasing-and-logistics/local/refill?country=US&amp;state=eyJ0YXJnZXRVcmwiOnsiY291bnRyeUNvZGUiOiJVUyIsInJlbGF0aXZlVXJsIjoiLyJ9fQ%3D%3D">Hilti — Connected Locker, gestion et réapprovisionnement des consommables</a></li>
+        </ul>
+        <p>Texte publié par le projet LENDRR. Fonctionnement et gains à valider en pilote.</p>
+      </footer>
+    </article>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+<style>
+  .press { padding-block: clamp(2rem,5vw,5rem); }
+  .back { display: inline-block; margin-bottom: 3rem; font-size: .85rem; text-underline-offset: .3em; }
+  article { max-width: 1050px; margin-inline: auto; }
+  .eyebrow { color: var(--color-text-muted); }
+  h1 { max-width: 19ch; margin: 1rem 0 1.5rem; font-family: var(--font-heading); font-size: clamp(2.5rem,5vw,5rem); letter-spacing: -.055em; line-height: 1.02; }
+  .lead { max-width: 58ch; font-size: clamp(1.1rem,1.8vw,1.45rem); line-height: 1.55; }
+  .article-body { max-width: 72ch; margin-top: 3rem; font-size: 1rem; line-height: 1.8; }
+  h2 { margin: 2.5rem 0 .75rem; font-family: var(--font-heading); font-size: clamp(1.45rem,2.5vw,2rem); line-height: 1.2; letter-spacing: -.03em; }
+  .press-cta { display: inline-flex; align-items: center; gap: 1rem; margin-top: 1.5rem; padding: 1rem 1.25rem; background: var(--color-signal); color: var(--color-ink); font-weight: 650; text-decoration: none; }
+  .sources { max-width: 72ch; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--color-line); font-size: .8rem; color: var(--color-text-muted); }
+  .sources ul { padding-left: 1.2rem; }
+  .sources li { margin-block: .65rem; }
+  @media(max-width: 540px) { .back { margin-bottom: 2rem; } .press-cta { width: 100%; justify-content: space-between; } }
+</style>

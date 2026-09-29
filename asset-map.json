@@ -1,0 +1,148 @@
+{
+  "productVariant": "current-16",
+  "visualPolicy": "Aucune personne, main, silhouette ou reflet humain dans les médias du site.",
+  "assets": [
+    {
+      "id": "brand-wordmark-light",
+      "sourcePath": "References Image/ChatGPT Image Sep 23, 2026, 12_02_55 PM (1).png",
+      "outputPath": "site/src/assets/brand/logo-light.png",
+      "status": "provisional",
+      "dimensions": "752x138",
+      "usage": "Logo clair dans le header, le téléphone de démonstration et le footer",
+      "alt": "",
+      "origin": "Extraction de la zone logo de R02, transparence reconstituée",
+      "limit": "Raster ; vérifier le contour si un master vectoriel devient disponible"
+    },
+    {
+      "id": "hero-and-product-closed",
+      "sourcePath": "lendrr/web/LENDRR_Hero.jpg",
+      "outputPath": "site/src/assets/product/hero-closed.webp",
+      "status": "ready",
+      "dimensions": "3000x2250",
+      "productVariant": "current-16",
+      "usage": "Galerie produit, CTA et bandes sombres assombries en CSS",
+      "alt": "Casier LENDRR à seize compartiments dans un environnement de chantier sans personne",
+      "limit": "Rendu de présentation en environnement ; le hero principal utilise le nouveau rendu Blender transparent."
+    },
+    {
+      "id": "hero-cabinet-transparent-v2",
+      "sourcePath": "lendrr/derived/site-v2/hero/cabinet-hero-render.png",
+      "outputPath": "site/src/assets/product/v2/hero-cabinet.webp",
+      "status": "ready",
+      "dimensions": "1600x1400",
+      "productVariant": "current-16",
+      "usage": "Hero principal ; rendu alpha à échelle plus distante, façade presque frontale, flanc droit visible",
+      "alt": "Casier LENDRR à seize compartiments, détouré sur fond transparent.",
+      "origin": "Rendu Blender Cycles depuis le modèle dérivé canonique ; caméra hero séparée des vues de configuration et de l’animation.",
+      "limit": "Fond alpha réel. L’éclairage et le cadrage sont intégrés au rendu."
+    },
+    {
+      "id": "interior-open",
+      "sourcePath": "lendrr/LENDRR_Interieur.png",
+      "outputPath": "site/src/assets/product/view-interior.webp",
+      "status": "ready",
+      "dimensions": "3000x2250",
+      "usage": "Vue intérieure dans la galerie produit",
+      "alt": "Intérieur du casier LENDRR avec compartiments et équipements"
+    },
+    {
+      "id": "material-detail",
+      "sourcePath": "lendrr/web/LENDRR_Matieres.jpg",
+      "outputPath": "site/src/assets/product/detail-material.webp",
+      "status": "ready",
+      "dimensions": "3000x2250",
+      "usage": "Détail du grain anthracite et de la bande orange"
+    },
+    {
+      "id": "modular-configuration-1",
+      "sourcePath": "lendrr/LENDRR_16_Chantier.blend",
+      "outputPath": "site/public/media/cabinet/v2/configurations/units-01.webp",
+      "status": "ready",
+      "dimensions": "480x460",
+      "alpha": true,
+      "usage": "Une implantation complète du casier actuel, sans décor"
+    },
+    {
+      "id": "modular-configuration-2",
+      "sourcePath": "lendrr/LENDRR_16_Chantier.blend",
+      "outputPath": "site/public/media/cabinet/v2/configurations/units-02.webp",
+      "status": "ready",
+      "dimensions": "960x544",
+      "alpha": true,
+      "usage": "Deux casiers complets juxtaposés, sans décor"
+    },
+    {
+      "id": "modular-configuration-3",
+      "sourcePath": "lendrr/LENDRR_16_Chantier.blend",
+      "outputPath": "site/public/media/cabinet/v2/configurations/units-03.webp",
+      "status": "ready",
+      "dimensions": "1440x622",
+      "alpha": true,
+      "usage": "Trois casiers complets juxtaposés, sans décor"
+    },
+    {
+      "id": "modular-configuration-4",
+      "sourcePath": "lendrr/LENDRR_16_Chantier.blend",
+      "outputPath": "site/public/media/cabinet/v2/configurations/units-04.webp",
+      "status": "ready",
+      "dimensions": "1920x699",
+      "alpha": true,
+      "usage": "Quatre casiers complets juxtaposés, sans décor"
+    },
+    {
+      "id": "use-case-tools",
+      "sourcePath": "lendrr/assets/site-v2/tools.png",
+      "outputPath": "site/src/assets/use-cases/v2/tools.webp",
+      "status": "ready",
+      "dimensions": "1536x1024",
+      "usage": "Image autonome de l’usage outillage",
+      "alt": "Perceuses et outils électroportatifs disposés sur un établi, sans personne"
+    },
+    {
+      "id": "use-case-ppe",
+      "sourcePath": "lendrr/assets/site-v2/ppe.png",
+      "outputPath": "site/src/assets/use-cases/v2/ppe.webp",
+      "status": "ready",
+      "dimensions": "1536x1024",
+      "usage": "Image autonome de l’usage EPI",
+      "alt": "Casque, lunettes, protections auditives, gilet et gants posés sur un établi, sans personne"
+    },
+    {
+      "id": "use-case-shared-equipment",
+      "sourcePath": "lendrr/assets/site-v2/shared.png",
+      "outputPath": "site/src/assets/use-cases/v2/shared.webp",
+      "status": "ready",
+      "dimensions": "1536x1024",
+      "usage": "Image autonome de matériel partagé et d’instruments de mesure"
+    },
+    {
+      "id": "use-case-consumables",
+      "sourcePath": "lendrr/assets/site-v2/consumables.png",
+      "outputPath": "site/src/assets/use-cases/v2/consumables.webp",
+      "status": "ready",
+      "dimensions": "1536x1024",
+      "usage": "Image autonome de fixations, abrasifs et consommables"
+    },
+    {
+      "id": "digital-phone-frame",
+      "sourcePath": "lendrr/assets/site-v2/phone-frame.png",
+      "outputPath": "site/src/assets/digital/v2/phone-frame.png",
+      "status": "ready",
+      "dimensions": "862x1825",
+      "alpha": true,
+      "usage": "Cadre noir de téléphone isolé ; l’interface est du HTML/CSS local",
+      "alt": "Téléphone noir vu de face, isolé sur fond transparent"
+    },
+    {
+      "id": "cabinet-scroll-sequence",
+      "sourcePath": "lendrr/LENDRR_16_Chantier.blend",
+      "outputPath": "site/public/media/cabinet/v2/{manifest.json,desktop/*.webp,mobile/*.webp,posters/*.webp}",
+      "status": "ready",
+      "productVariant": "current-16",
+      "dimensions": "Desktop 1200x1200 WebP (crop central 1200² sans resize depuis master 1920x1200), 121 positions ; mobile 834x960 WebP (crop sans resize depuis master 960²), 81 positions",
+      "alpha": true,
+      "usage": "Canvas 2D sticky et piloté par le scroll ; aucune caméra ou porte interactive dans le navigateur",
+      "limit": "119 images WebP uniques ; les recadrages alpha mesurés gardent toutes les pièces. Vue éclatée tenue en fin de séquence et réversible au scroll."
+    }
+  ]
+}

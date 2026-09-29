@@ -1,0 +1,201 @@
+---
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+import phoneFrame from '../assets/digital/v2/phone-frame.png';
+import { productAssets } from '../data/assets';
+import { digitalFeatures } from '../data/site';
+---
+
+<section class="digital-access section-pad section-rule" id="acces-digital" aria-labelledby="digital-title" data-digital-demo>
+  <div class="shell">
+    <div class="digital-grid">
+      <div class="digital-copy">
+        <p class="section-kicker">LENDRR · ACCÈS DIGITAL</p>
+        <SectionHeading title="Un accès simple. Un suivi clair." id="digital-title" />
+        <p class="digital-intro">L’interface cible accompagne l’emprunt, puis rend l’historique des prises et des restitutions consultable par l’équipe.</p>
+        <p class="demo-disclaimer"><span aria-hidden="true"></span> Prototype visuel · données de démonstration, sans connexion au casier.</p>
+        <ul class="feature-list">
+          {digitalFeatures.map((feature) => (
+            <li><Icon name={feature.icon} size={25} /><span><strong>{feature.title}</strong><small>{feature.detail}</small></span></li>
+          ))}
+        </ul>
+      </div>
+
+      <figure class="phone-figure">
+        <div class="phone-render">
+          <div class="phone-screen">
+            <div class="phone-status"><time>9:41</time><span aria-hidden="true">● ▮ ▰</span></div>
+            <header class="app-header"><img src={productAssets.wordmark.src} width={productAssets.wordmark.width} height={productAssets.wordmark.height} alt="LENDRR" /><span class="app-context">MON CHANTIER</span></header>
+            <div id="app-access" class="app-pane app-access" data-phone-pane="access" role="tabpanel" aria-labelledby="phone-tab-access">
+              <div class="locker-preview"><img src={productAssets.heroCabinet.src} width="1600" height="1400" alt="Votre casier LENDRR" loading="lazy" /></div>
+              <h3>Casier 04</h3>
+              <p class="screen-state" data-lock-state aria-live="polite"><i></i> Déverrouillé</p>
+              <button class="screen-lock" type="button" aria-label="Verrouiller le casier de démonstration" aria-pressed="false" data-demo-lock>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path data-lock-shackle d="M8 10V7a4 4 0 0 1 8 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="5" y="10" width="14" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M12 14v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+              <p class="screen-footnote">Touchez pour tester l’accès</p>
+              <div class="screen-action"><span>Mon casier</span><Icon name="arrow" size={16} /></div>
+              <div class="app-nav" aria-hidden="true"><span class="current"><Icon name="box" size={19} />Casiers</span><span><Icon name="bars" size={19} />Activité</span><span><Icon name="shield" size={19} />Profil</span></div>
+            </div>
+            <div id="app-history" class="app-pane app-history" data-phone-pane="history" role="tabpanel" aria-labelledby="phone-tab-history" hidden>
+              <p class="history-kicker">CHANTIER · AUJOURD’HUI</p>
+              <h3>Activité</h3>
+              <ol class="phone-events">
+                <li><time>10:24</time><i class="event-dot event-dot--green"></i><span><strong>Accès accordé</strong><small>Casier 06 · outillage</small></span></li>
+                <li><time>08:17</time><i class="event-dot event-dot--orange"></i><span><strong>Retour enregistré</strong><small>Équipement partagé</small></span></li>
+                <li><time>Hier</time><i class="event-dot event-dot--green"></i><span><strong>Accès accordé</strong><small>Casier 03 · consommables</small></span></li>
+              </ol>
+              <p class="screen-footnote">Historique de démonstration</p>
+              <nav class="app-nav" aria-hidden="true"><span><Icon name="box" size={19} />Casiers</span><span class="current"><Icon name="bars" size={19} />Activité</span><span><Icon name="shield" size={19} />Profil</span></nav>
+            </div>
+          </div>
+          <img class="phone-frame" src={phoneFrame.src} width={phoneFrame.width} height={phoneFrame.height} alt="Téléphone noir isolé, avec une interface de démonstration LENDRR." loading="lazy" decoding="async" />
+        </div>
+        <div class="phone-tabs" role="tablist" aria-label="Écrans de démonstration">
+          <button id="phone-tab-access" type="button" role="tab" aria-selected="true" aria-controls="app-access" data-phone-tab="access">Accès</button>
+          <button id="phone-tab-history" type="button" role="tab" aria-selected="false" aria-controls="app-history" data-phone-tab="history" tabindex="-1">Activité</button>
+        </div>
+        <figcaption>Interface de démonstration · aucune donnée réelle.</figcaption>
+      </figure>
+
+      <aside class="digital-side">
+        <div class="digital-side-heading">
+          <span class="accent-mark" aria-hidden="true"></span>
+          <p>De l’emprunt à la restitution, une trace lisible de chaque équipement.</p>
+        </div>
+        <div class="activity-preview" aria-labelledby="activity-title">
+          <div class="activity-title-line"><h3 id="activity-title">Journal d’activité</h3><span>EXEMPLE</span></div>
+          <ol class="activity-list">
+            <li><time datetime="10:24">10:24</time><span class="activity-dot activity-dot--green"><Icon name="shield" size={16} /></span><span><strong>Accès accordé</strong><small>Casier 06 · outillage</small></span></li>
+            <li><time datetime="08:17">08:17</time><span class="activity-dot activity-dot--orange"><Icon name="arrow" size={16} /></span><span><strong>Retour enregistré</strong><small>Équipement partagé</small></span></li>
+            <li><time>Hier</time><span class="activity-dot activity-dot--green"><Icon name="shield" size={16} /></span><span><strong>Accès accordé</strong><small>Casier 03 · consommables</small></span></li>
+          </ol>
+          <p class="activity-note">Interface illustrative : ces événements ne proviennent pas d’un casier connecté.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<script>
+  const demo = document.querySelector<HTMLElement>('[data-digital-demo]');
+  const lock = demo?.querySelector<HTMLButtonElement>('[data-demo-lock]');
+  const state = demo?.querySelector<HTMLElement>('[data-lock-state]');
+  lock?.addEventListener('click', () => {
+    const locked = lock.getAttribute('aria-pressed') !== 'true';
+    lock.setAttribute('aria-pressed', String(locked));
+    lock.querySelector('[data-lock-shackle]')?.setAttribute('d', locked ? 'M8 10V7a4 4 0 0 1 8 0v3' : 'M8 10V7a4 4 0 0 1 8 0');
+    lock.setAttribute('aria-label', `${locked ? 'Déverrouiller' : 'Verrouiller'} le casier de démonstration`);
+    if (state) { state.replaceChildren(); const dot = document.createElement('i'); state.append(dot, locked ? ' Verrouillé' : ' Déverrouillé'); state.style.color = locked ? '#c4cbc6' : '#75d991'; }
+  });
+  const tabs = Array.from(demo?.querySelectorAll<HTMLButtonElement>('[data-phone-tab]') ?? []);
+  const panes = Array.from(demo?.querySelectorAll<HTMLElement>('[data-phone-pane]') ?? []);
+  for (const tab of tabs) {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.phoneTab;
+      for (const item of tabs) {
+        const selected = item === tab;
+        item.setAttribute('aria-selected', String(selected));
+        item.tabIndex = selected ? 0 : -1;
+      }
+      for (const pane of panes) pane.hidden = pane.dataset.phonePane !== target;
+    });
+    tab.addEventListener('keydown', (event) => {
+      const currentIndex = tabs.indexOf(tab);
+      let nextIndex = currentIndex;
+      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (currentIndex + 1) % tabs.length;
+      else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+      else if (event.key === 'Home') nextIndex = 0;
+      else if (event.key === 'End') nextIndex = tabs.length - 1;
+      else return;
+      event.preventDefault();
+      tabs[nextIndex]?.focus();
+      tabs[nextIndex]?.click();
+    });
+  }
+</script>
+
+<style>
+  .digital-access { padding-block: clamp(3rem, 6vw, 6.5rem); }
+  .digital-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, .48fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 4.5rem); align-items: center; }
+  .digital-copy { align-self: center; }
+  .digital-copy .section-kicker { margin-bottom: .75rem; color: var(--color-text-muted); }
+  .digital-copy :global(.section-title) { max-width: 12ch; font-family: var(--font-heading); font-size: clamp(2rem, 3.4vw, 4rem); letter-spacing: -.045em; line-height: .98; text-transform: none; }
+  .digital-intro { max-width: 42ch; margin: 1rem 0 .85rem; color: var(--color-text-muted); font-size: clamp(.92rem, 1.1vw, 1.05rem); line-height: 1.55; }
+  .demo-disclaimer { display: flex; align-items: flex-start; gap: .48rem; margin: 0; color: #4c5154; font-size: .72rem; font-weight: 650; line-height: 1.4; }
+  .demo-disclaimer span { width: .53rem; height: .53rem; flex: 0 0 auto; margin-top: .22rem; border-radius: 50%; background: var(--color-signal); }
+  .feature-list { display: grid; padding: 0; margin: 1.6rem 0 0; list-style: none; border-top: 1px solid var(--color-line); }
+  .feature-list li { display: grid; grid-template-columns: 29px minmax(0,1fr); gap: .75rem; align-items: center; padding: .85rem 0; border-bottom: 1px solid var(--color-line); }
+  .feature-list li :global(svg) { color: var(--color-signal); }
+  .feature-list strong,.feature-list small { display: block; }
+  .feature-list strong { font-size: .87rem; font-weight: 700; line-height: 1.2; }
+  .feature-list small { margin-top: .18rem; color: var(--color-text-muted); font-family: var(--font-condensed); font-size: .8rem; font-weight: 600; letter-spacing: .025em; line-height: 1.2; }
+  .phone-figure { width: min(100%, 340px); justify-self: center; margin: 0; text-align: center; }
+  .phone-render { position: relative; width: 100%; aspect-ratio: 862 / 1825; isolation: isolate; container-type: inline-size; }
+  .phone-frame { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+  .phone-screen { position: absolute; z-index: 1; top: 6.3%; left: 10.2%; width: 80%; height: 86.9%; display: flex; flex-direction: column; overflow: hidden; border-radius: 12% / 5.5%; padding: 5% 6% 4%; color: #f3f1ea; background: #111416; font-size: 4cqw; text-align: center; }
+  .phone-status { display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; margin-bottom: 8%; font-size: .68em; font-weight: 700; }
+  .phone-status span { letter-spacing: .12em; }
+  .app-header { display: grid; justify-items: center; gap: .6em; flex-shrink: 0; }
+  .app-header img { display: block; width: 72%; height: auto; }
+  .app-context,.history-kicker { color: #a4aaa8; font-size: .6em; font-weight: 700; letter-spacing: .14em; }
+  .app-pane { min-height: 0; flex: 1; position: relative; }
+  .app-access { display: flex; flex-direction: column; align-items: center; }
+  .app-pane h3 { margin: 0; font-family: var(--font-heading); font-size: 1.65em; letter-spacing: -.035em; }
+  .locker-preview { width: 95%; height: 36%; flex-shrink: 0; margin-top: .35em; }
+  .locker-preview img { width: 100%; height: 100%; object-fit: contain; }
+  .screen-state { display: flex; align-items: center; justify-content: center; gap: .5em; margin: .4em 0 0; color: #75d991; font-size: .95em; font-weight: 650; }
+  .screen-state i,.event-dot { width: .6em; height: .6em; display: inline-block; border-radius: 50%; background: currentColor; }
+  .screen-lock { width: 5.8em; height: 5.8em; flex-shrink: 0; display: grid; place-items: center; margin: .9em auto .4em; border: 2px solid var(--color-signal); border-radius: 50%; color: #f4f2ec; background: #1b2022; cursor: pointer; font-size: inherit; transition: transform 150ms ease; }
+  .screen-lock:active { transform: scale(.95); }
+  .screen-lock svg { width: 48%; height: 48%; }
+  .screen-lock[aria-pressed='true'] { border-color: #77817d; }
+  .screen-action { width: 100%; min-height: 2.5em; display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding: .5em .85em; border: 1px solid #47504c; border-radius: 999px; color: #f3f1ea; font-size: .75em; }
+  .screen-footnote { margin: .25em 0 .6em; color: #a4aaa8; font-size: .65em; text-align: center; }
+  .app-nav { width: 100%; display: flex; justify-content: space-around; flex-shrink: 0; margin-top: .8em; padding: .7em 0 0; border-top: 1px solid rgb(243 241 234 / 12%); color: #a4aaa8; font-size: .64em; }
+  .app-nav span { display: grid; justify-items: center; gap: .3em; }
+  .app-nav .current { color: #f3f1ea; }
+  .app-history { padding-top: 8%; }
+  .app-history .app-nav { position: absolute; bottom: 0; }
+  .app-history h3 { margin-top: 2%; }
+  .phone-events { display: grid; gap: 0; padding: 0; margin: 9% 0 0; list-style: none; }
+  .phone-events li { display: grid; grid-template-columns: 3.1em .8em minmax(0, 1fr); gap: .5em; align-items: center; min-height: 5.3em; border-bottom: 1px solid rgb(243 241 234 / 15%); }
+  .phone-events time { color: #a4aaa8; font-size: .72em; }
+  .event-dot { width: .62em; height: .62em; }
+  .event-dot--green { background: #38ce70; }
+  .event-dot--orange { background: var(--color-signal); }
+  .phone-events strong,.phone-events small { display: block; }
+  .phone-events strong { font-size: .78em; }
+  .phone-events small { margin-top: .28em; color: #a4aaa8; font-size: .66em; }
+  .phone-tabs { display: flex; justify-content: center; gap: .45rem; margin-top: .85rem; }
+  .phone-tabs button { min-height: 44px; padding: .4rem .85rem; border: 1px solid var(--color-line); border-radius: 999px; color: var(--color-ink); background: transparent; font-size: .76rem; cursor: pointer; }
+  .phone-tabs button[aria-selected='true'] { border-color: var(--color-ink); color: var(--color-paper); background: var(--color-ink); }
+  .phone-figure figcaption { padding-top: .55rem; color: var(--color-text-muted); font-size: .68rem; }
+  .digital-side { min-width: 0; padding: clamp(1.2rem, 2vw, 2rem); border-radius: 28px; background: #f8f7f2; }
+  .digital-side-heading p { max-width: 30ch; margin: .7rem 0 1.35rem; font-family: var(--font-heading); font-size: clamp(1.2rem, 1.8vw, 1.7rem); font-weight: 600; letter-spacing: -.035em; line-height: 1.1; }
+  .activity-preview { padding: 1rem 1.1rem; border: 1px solid #e8e6df; border-radius: 16px; background: #fffefa; box-shadow: 0 8px 24px rgb(40 35 24 / 5%); }
+  .activity-title-line { display: flex; justify-content: space-between; gap: 1rem; align-items: center; padding-bottom: .7rem; border-bottom: 1px solid var(--color-line); }
+  .activity-title-line h3 { margin: 0; font-family: var(--font-condensed); font-size: .98rem; font-weight: 800; letter-spacing: .065em; text-transform: uppercase; }
+  .activity-title-line > span { font-size: .61rem; font-weight: 700; letter-spacing: .12em; }
+  .activity-list { display: grid; gap: 0; padding: 0; margin: .1rem 0; list-style: none; }
+  .activity-list li { min-height: 58px; display: grid; grid-template-columns: 2.7rem 2rem minmax(0,1fr); gap: .6rem; align-items: center; border-bottom: 1px solid var(--color-line); }
+  .activity-list time { color: var(--color-text-muted); font-size: .74rem; }
+  .activity-dot { width: 2rem; height: 2rem; display: grid; place-items: center; border-radius: 50%; color: #226437; background: #e0f1df; }
+  .activity-dot--orange { color: #bd4516; background: #ffeadc; }
+  .activity-list strong,.activity-list small { display: block; }
+  .activity-list strong { font-size: .78rem; }
+  .activity-list small { margin-top: .15rem; color: var(--color-text-muted); font-size: .7rem; }
+  .activity-note { margin: .75rem 0 0; color: var(--color-text-muted); font-size: .69rem; line-height: 1.4; }
+  [hidden] { display: none !important; }
+  @media (max-width: 960px) {
+    .digital-grid { grid-template-columns: minmax(0, 1fr) minmax(250px, .65fr); gap: 2.5rem; }
+    .digital-side { grid-column: 1 / -1; display: grid; grid-template-columns: .7fr 1fr; gap: 2rem; align-items: start; }
+  }
+  @media (max-width: 640px) {
+    .digital-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .digital-copy :global(.section-title) { max-width: 13ch; }
+    .phone-figure { width: min(100%, 310px); }
+
+    .digital-side { grid-column: auto; display: block; }
+  }
+</style>

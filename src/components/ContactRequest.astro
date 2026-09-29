@@ -1,0 +1,100 @@
+---
+import Icon from './Icon.astro';
+const recipient = import.meta.env.PUBLIC_CONTACT_EMAIL?.trim() || '';
+---
+<section class="contact-section section-pad section-rule" id="solutions" aria-labelledby="contact-title">
+  <div class="shell contact-grid" id="configurer" tabindex="-1">
+    <div class="contact-copy">
+      <p class="section-kicker">LENDRR · CONTACT</p>
+      <h2 id="contact-title">Vos équipements.<br /> Votre chantier.<br /> <span>Parlons pilote.</span></h2>
+      <span class="accent-mark" aria-hidden="true"></span>
+      <p class="contact-intro">Le casier LENDRR suit les équipements de l’emprunt à la restitution et documente leur état au retour. Décrivez vos usages pour cadrer une configuration ou un pilote.</p>
+      <ul class="contact-benefits">
+        <li><Icon name="check" size={21} /><span>Vos équipements et leurs utilisateurs</span></li>
+        <li><Icon name="check" size={21} /><span>La vérification prévue à chaque retour</span></li>
+        <li><Icon name="check" size={21} /><span>Un parcours à mesurer en pilote</span></li>
+      </ul>
+      {recipient && <p class="direct-contact">Écrire directement : <a href={`mailto:${recipient}`}>{recipient}</a></p>}
+    </div>
+    <form class="contact-form" data-contact-form data-recipient={recipient}>
+      <h3>Préparer ma configuration</h3>
+      <p class="contact-notice" id="contact-notice">{recipient ? 'Votre message s’ouvrira dans votre messagerie, déjà adressé à LENDRR. Vous pourrez le relire avant de l’envoyer.' : 'Préparez votre demande et téléchargez-la pour la transmettre à votre interlocuteur LENDRR. Aucun message ne sera envoyé automatiquement.'}</p>
+      <div class="contact-fields">
+        <label>Votre nom <span class="required">*</span><input name="name" autocomplete="name" required maxlength="100" /></label>
+        <label>Entreprise ou organisation<input name="organization" autocomplete="organization" maxlength="150" placeholder="Votre entreprise" /></label>
+        <label>Adresse e-mail <span class="required">*</span><input name="email" type="email" autocomplete="email" required maxlength="254" /></label>
+        <label>Type de site<select name="site"><option value="">Choisir…</option><option>Chantier</option><option>Atelier ou dépôt</option><option>Plusieurs sites</option><option>Autre</option></select></label>
+        <label class="full-field">Nombre d’ensembles envisagé<select name="units"><option value="À définir ensemble">À définir ensemble</option><option value="1 ensemble">1 ensemble</option><option value="2 ensembles">2 ensembles</option><option value="3 ensembles">3 ensembles</option><option value="4 ensembles ou plus">4 ensembles ou plus</option></select></label>
+        <label class="full-field">Votre message <span class="required">*</span><textarea name="message" rows="4" required maxlength="2000" placeholder="Vos équipements, vos équipes, vos enjeux de restitution…"></textarea></label>
+      </div>
+      <button class="contact-submit" type="submit">{recipient ? 'Ouvrir le message dans ma messagerie' : 'Télécharger ma demande'}<Icon name="arrow" size={21} /></button>
+      <p class="contact-privacy">Les informations saisies servent uniquement à préparer votre demande. Les champs marqués d’un astérisque sont obligatoires.</p>
+      <p class="contact-status" role="status" aria-live="polite"></p>
+      <noscript><p>{recipient ? `Contactez-nous directement à ${recipient}.` : 'Activez JavaScript pour préparer et télécharger votre demande.'}</p></noscript>
+    </form>
+    <aside class="pilot-measures" aria-label="Indicateurs à mesurer pendant un pilote">
+      <strong>À mesurer en pilote</strong>
+      <p>Temps d’attente, pertes d’outillage et anomalies constatées au retour.</p>
+    </aside>
+  </div>
+</section>
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+    const data = new FormData(form);
+    const value = (name: string) => String(data.get(name) || '').trim();
+    const body = ['Bonjour,', '', 'Je souhaite préparer une configuration LENDRR.', '', `Nom : ${value('name')}`, `Entreprise : ${value('organization') || 'Non précisée'}`, `E-mail : ${value('email')}`, `Site : ${value('site') || 'Non précisé'}`, `Implantation envisagée : ${value('units')}`, '', value('message')].join('\n');
+    const recipient = form.dataset.recipient;
+    const status = form.querySelector<HTMLElement>('.contact-status');
+    if (recipient) {
+      window.location.href = `mailto:${recipient}?subject=${encodeURIComponent('LENDRR — demande de configuration')}&body=${encodeURIComponent(body)}`;
+      if (status) status.textContent = 'Votre messagerie est sollicitée. Le message ne sera envoyé qu’après votre validation dans celle-ci.';
+    } else {
+      const url = URL.createObjectURL(new Blob([body], { type: 'text/plain;charset=utf-8' }));
+      const link = document.createElement('a'); link.href = url; link.download = 'demande-lendrr.txt';
+      document.body.append(link); link.click(); link.remove(); window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+      if (status) status.textContent = 'Demande téléchargée. Vous pouvez la transmettre à votre interlocuteur LENDRR.';
+    }
+  });
+</script>
+<style>
+  .contact-section { display: grid; align-items: center; min-height: clamp(57rem,71.25vw,64rem); }
+  .contact-grid { display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); gap: clamp(2rem,5vw,5.5rem); align-items: center; scroll-margin-top: 2rem; }
+  .pilot-measures { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 1rem; margin-top: -.5rem; padding-top: .9rem; border-top: 1px solid var(--color-line); }
+  .pilot-measures strong { flex: 0 0 auto; font-family: var(--font-condensed); font-size: .73rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+  .pilot-measures p { margin: 0; color: var(--color-text-muted); font-size: .8rem; line-height: 1.4; }
+  .contact-copy .section-kicker { color: #a63b13; }
+  h2 { margin: 1rem 0 1.25rem; font-family: var(--font-heading); font-weight: 650; font-size: clamp(2.2rem,3.5vw,4.5rem); line-height: 1.04; letter-spacing: -.045em; }
+  h2 span { color: var(--color-ink); }
+  .contact-intro { max-width: 43ch; margin: 1.5rem 0; color: var(--color-text-muted); font-size: clamp(1rem,1.2vw,1.2rem); line-height: 1.65; }
+  .contact-benefits { display: grid; gap: 1rem; padding: 0; margin: 1.75rem 0; list-style: none; }
+  .contact-benefits li { display: flex; align-items: center; gap: .8rem; line-height: 1.5; }
+  .contact-benefits :global(svg) { flex-shrink: 0; color: #b54116; }
+  .direct-contact { line-height: 1.6; overflow-wrap: anywhere; }
+  .direct-contact a { color: #a83b12; text-underline-offset: .25em; }
+  .contact-form { min-width: 0; padding: clamp(1.2rem,2.3vw,2.6rem); border: 1px solid #e1dfd7; border-radius: 30px; background: #fffefa; box-shadow: 0 20px 60px -30px rgb(43 38 24 / 20%); }
+  h3 { margin: 0 0 .8rem; font-family: var(--font-heading); font-size: 1.35rem; letter-spacing: -.03em; }
+  .contact-notice { margin: 0 0 1.15rem; padding: .8rem 1rem; border: 1px solid #e4dfd3; border-radius: 15px; color: #51554e; background: #f5f3ec; font-size: .82rem; line-height: 1.5; }
+  .contact-fields { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .9rem .85rem; }
+  label { display: block; min-width: 0; font-size: .85rem; font-weight: 650; }
+  .required { color: #a83b12; }
+  input,select,textarea { display: block; width: 100%; min-width: 0; margin-top: .4rem; padding: .68rem .85rem; border: 1px solid #b8bcb7; border-radius: 13px; color: var(--color-ink); background: #fff; font: inherit; font-weight: 400; }
+  input,select { min-height: 46px; }
+  textarea { resize: vertical; min-height: 112px; line-height: 1.45; }
+  input:focus-visible,select:focus-visible,textarea:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
+  input::placeholder,textarea::placeholder { color: #71786f; }
+  .full-field { grid-column: 1 / -1; }
+  .contact-submit { display: flex; align-items: center; justify-content: center; gap: 1rem; min-height: 48px; margin-top: 1.05rem; padding: .7rem 1.4rem; border: 0; border-radius: 999px; color: #f3f1ea; background: var(--color-ink); font: inherit; font-size: .88rem; font-weight: 650; cursor: pointer; }
+  .contact-submit:hover { background: #353c39; }
+  .contact-submit:active { transform: translateY(1px); }
+  .contact-submit :global(svg) { flex-shrink: 0; }
+  .contact-privacy,.contact-status { font-size: .75rem; line-height: 1.6; color: var(--color-text-muted); }
+  .contact-privacy { margin-top: .9rem; }
+  .contact-status:empty { display: none; }
+  @media(min-width:521px) and (max-width:1023px) { .contact-section { min-height: 82rem; } }
+  @media(max-width:900px) { .contact-grid { grid-template-columns: 1fr; gap: 2rem; } .pilot-measures { margin-top: 0; } h2 br { display: none; } h2 { max-width: 18ch; } .contact-intro { max-width: 60ch; } }
+  @media(max-width:520px) { .pilot-measures { display: grid; gap: .3rem; } }
+  @media(max-width:520px) { .contact-section { min-height: clamp(92rem,calc(121.5rem - 75.4vw),108rem); } .contact-fields { grid-template-columns: 1fr; } .contact-form { border-radius: 24px; padding: 1.2rem; } .contact-submit { width: 100%; } }
+</style>

@@ -1,0 +1,37 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { useCases } from '../data/site';
+import toolsImage from '../assets/use-cases/v2/tools.webp';
+import ppeImage from '../assets/use-cases/v2/ppe.webp';
+import sharedImage from '../assets/use-cases/v2/shared.webp';
+import consumablesImage from '../assets/use-cases/v2/consumables.webp';
+
+const photos = [toolsImage, ppeImage, sharedImage, consumablesImage];
+---
+
+<section class="use-cases section-pad section-rule" id="cas-usage" tabindex="-1" aria-labelledby="use-cases-title">
+  <div class="shell">
+    <SectionHeading title="Cas d’usage" id="use-cases-title" />
+    <p class="use-intro">Outillage, EPI et matériel partagé : un parcours commun de l’emprunt à la vérification du retour.</p>
+    <div class="use-grid">
+      {useCases.map((useCase, index) => (
+        <article class="use-card">
+          <img src={photos[index].src} width={photos[index].width} height={photos[index].height} alt={`Équipements ${useCase.title.toLowerCase()} disposés sur un établi, sans personne.`} loading="lazy" decoding="async" />
+          <h3>{useCase.title}</h3>
+          <p>{useCase.detail}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .use-intro { min-height: 2.7em; margin: -.2rem 0 .8rem; color: var(--color-text-muted); font-size: .79rem; line-height: 1.4; }
+  .use-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(.65rem, 1.6vw, 1.6rem); }
+  .use-card { min-width: 0; }
+  .use-card img { width: 100%; height: auto; aspect-ratio: 1.7; object-fit: cover; background: #e1dfd7; }
+  .use-card h3 { margin: .32rem 0 .08rem; font-family: var(--font-condensed); font-size: .71rem; font-weight: 800; letter-spacing: .08em; line-height: 1.1; text-transform: uppercase; }
+  .use-card p { margin: 0; color: var(--color-text-muted); font-size: .63rem; line-height: 1.28; }
+  @media (max-width: 900px) { .use-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; } .use-card h3 { font-size: .82rem; } .use-card p { font-size: .78rem; } }
+  @media (max-width: 480px) { .use-grid { grid-template-columns: 1fr; gap: 1.5rem; } .use-card img { aspect-ratio: 1.5; } }
+</style>

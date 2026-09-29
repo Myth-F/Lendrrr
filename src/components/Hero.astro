@@ -1,0 +1,99 @@
+---
+import ActionLink from './ActionLink.astro';
+import { productAssets } from '../data/assets';
+import Icon from './Icon.astro';
+import { attributes, siteContent } from '../data/site';
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <p class="hero-eyebrow eyebrow">{siteContent.heroEyebrow}</p>
+      <h1 id="hero-title">
+        <span>Le casier</span>
+        <span>qui vérifie</span>
+        <span>chaque retour<span class="signal-period">.</span></span>
+      </h1>
+      <span class="accent-mark" aria-hidden="true"></span>
+      <p class="hero-intro">{siteContent.heroIntro}</p>
+      <div class="hero-actions">
+        <ActionLink href="#configurer">{siteContent.ctaPrimary}</ActionLink>
+        <ActionLink href="#produit" variant="secondary" arrow={false}>
+          <Icon name="cube" size={20} />{siteContent.ctaSecondary}
+        </ActionLink>
+      </div>
+      <ul class="hero-attributes" aria-label="Caractéristiques principales">
+        {attributes.map((attribute) => (
+          <li>
+            <Icon name={attribute.icon} size={29} />
+            <span class="attribute-label">{attribute.label}</span>
+            <span class="attribute-detail">{attribute.detail}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <figure class="hero-media">
+      <img
+        src={productAssets.heroCabinet.src}
+        width={productAssets.heroCabinet.width}
+        height={productAssets.heroCabinet.height}
+        alt="Casier LENDRR à seize compartiments, détouré sur fond transparent."
+        fetchpriority="high"
+        decoding="async"
+      />
+    </figure>
+  </div>
+</section>
+
+<style>
+  .hero-grid { width: calc(100% - 2 * var(--page-gutter)); min-height: clamp(540px, 72svh, 820px); margin-inline: auto; display: grid; grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr); align-items: stretch; }
+  .hero-copy { z-index: 1; display: flex; min-width: 0; flex-direction: column; justify-content: center; padding-block: 1.55rem 1.35rem; padding-right: clamp(1rem, 2.1vw, 2rem); }
+  .hero-eyebrow { margin-bottom: .8rem; }
+  h1 { max-width: 8.3ch; margin: 0; font-family: var(--font-heading); font-size: clamp(2.5rem, 4.6vw, 5rem); font-weight: 700; letter-spacing: var(--tracking-hero); line-height: var(--leading-hero); }
+  h1 > span { display: block; }
+  .signal-period { color: var(--color-signal); }
+  .hero-copy > .accent-mark { margin-top: .9rem; }
+  .hero-intro { max-width: 42ch; margin: 1rem 0 0; color: #3f4346; font-size: clamp(.875rem, 1.08vw, 1rem); line-height: 1.45; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; }
+  .hero-actions :global(.action-link) { min-height: 42px; }
+  .hero-attributes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .55rem; padding: 0; margin: auto 0 0; list-style: none; }
+  .hero-attributes li { min-width: 0; display: grid; align-content: end; justify-items: start; padding-top: 1rem; }
+  .hero-attributes :global(svg) { width: 27px; height: 27px; margin-bottom: .38rem; }
+  .attribute-label { font-family: var(--font-condensed); font-size: .79rem; font-weight: 800; letter-spacing: .08em; line-height: 1.1; text-transform: uppercase; }
+  .attribute-detail { max-width: 16ch; margin-top: .28rem; font-family: var(--font-condensed); font-size: .67rem; font-weight: 600; letter-spacing: .04em; line-height: 1.2; text-transform: uppercase; }
+  .hero-media { position: relative; min-width: 0; height: 100%; min-height: 540px; margin: 0; overflow: visible; background: transparent; }
+  .hero-media img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center; filter: drop-shadow(0 20px 18px rgb(23 27 29 / 14%)); }
+
+  @media (min-width: 1024px) {
+    h1 > span:last-child { white-space: nowrap; }
+  }
+
+  @media (max-width: 1023px) {
+    .hero-grid { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
+    h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); }
+    .hero-attributes { gap: .35rem; }
+  }
+
+  @media (max-width: 767px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-copy { padding: 1.75rem 0 1.4rem; }
+    h1 { max-width: 12ch; font-size: clamp(2.65rem, 10vw, 3.75rem); line-height: .99; }
+    h1 > span { display: inline; }
+    h1 > span::after { content: ' '; }
+    h1 > span:last-child::after { content: none; }
+    .hero-intro { max-width: 48ch; font-size: 1rem; }
+    .hero-actions { max-width: 28rem; }
+    .hero-attributes { margin-top: .9rem; }
+    .hero-attributes li { padding-top: .55rem; }
+    .hero-media { width: 100%; min-height: 0; height: auto; aspect-ratio: 1.14; margin: 0; }
+    .hero-media img { object-position: 50% center; }
+  }
+
+  @media (max-width: 430px) {
+    .hero-attributes { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1rem; row-gap: .3rem; }
+    .hero-attributes li { grid-template-columns: 29px minmax(0, 1fr); align-items: center; column-gap: .45rem; }
+    .hero-attributes :global(svg) { grid-row: span 2; margin: 0; }
+    .attribute-detail { margin: .12rem 0 0; }
+    .hero-media { aspect-ratio: 1.12; }
+  }
+</style>

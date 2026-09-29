@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import Hero from '../components/Hero.astro';
+import ProductViews from '../components/ProductViews.astro';
+import ContactRequest from '../components/ContactRequest.astro';
+import SpecsTable from '../components/SpecsTable.astro';
+import DigitalAccess from '../components/DigitalAccess.astro';
+import UseCases from '../components/UseCases.astro';
+import BenefitsBand from '../components/BenefitsBand.astro';
+import Comparison from '../components/Comparison.astro';
+import FinalCta from '../components/FinalCta.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+
+<BaseLayout>
+  <SiteHeader />
+  <main id="main">
+    <Hero />
+    <ProductViews />
+    <ContactRequest />
+    <SpecsTable />
+    <UseCases />
+    <DigitalAccess />
+    <BenefitsBand />
+    <Comparison />
+    <FinalCta />
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+</style>

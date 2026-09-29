@@ -1,0 +1,31 @@
+---
+import { productAssets } from '../data/assets';
+---
+
+<section class="benefits-band" aria-labelledby="benefits-title">
+  <img class="benefit-image" src={productAssets.heroClosed.src} width={productAssets.heroClosed.width} height={productAssets.heroClosed.height} alt="" loading="lazy" decoding="async" />
+  <div class="benefit-shade" aria-hidden="true"></div>
+  <div class="benefit-inner shell">
+    <h2 id="benefits-title">La restitution devient une preuve<span>.</span></h2>
+    <div class="benefit-points" aria-label="Bénéfices attendus">
+      <div><strong>État vérifié</strong><small>Présence, complétude, dégradations</small></div>
+      <div><strong>Trace horodatée</strong><small>Un historique par équipement</small></div>
+      <div><strong>Retour fluide</strong><small>Le contrôle intervient après le dépôt</small></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .benefits-band { position: relative; min-height: 118px; display: flex; align-items: stretch; overflow: hidden; color: var(--color-paper); background: var(--color-ink-deep); }
+  .benefit-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 57%; filter: grayscale(1) brightness(.42); }
+  .benefit-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgb(23 27 29 / 22%), rgb(23 27 29 / 90%) 39%, rgb(23 27 29 / 96%)); }
+  .benefit-inner { position: relative; z-index: 1; display: grid; grid-template-columns: .95fr 1.65fr; align-items: center; gap: clamp(1rem, 3vw, 3rem); padding-block: 1rem; }
+  .benefit-inner h2 { max-width: 17ch; margin: 0; font-family: var(--font-condensed); font-size: clamp(1.5rem, 2.25vw, 2.15rem); font-weight: 800; letter-spacing: .01em; line-height: .96; text-transform: uppercase; }
+  .benefit-inner h2 span { color: var(--color-signal); }
+  .benefit-points { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .benefit-points div { min-height: 56px; display: grid; align-content: center; gap: .24rem; padding-inline: clamp(.6rem, 1.5vw, 1.3rem); border-left: 1px solid rgb(243 241 234 / 55%); }
+  .benefit-points strong { font-family: var(--font-condensed); font-size: clamp(.94rem, 1.55vw, 1.45rem); font-weight: 800; line-height: 1; text-transform: uppercase; }
+  .benefit-points small { color: rgb(243 241 234 / 80%); font-family: var(--font-condensed); font-size: .65rem; font-weight: 600; letter-spacing: .07em; line-height: 1.15; text-transform: uppercase; }
+  @media (max-width: 767px) { .benefit-inner { grid-template-columns: 1fr; gap: 1rem; padding-block: 1.3rem; } .benefit-points div:first-child { border-left: 0; padding-left: 0; } .benefit-points strong { font-size: 1rem; } .benefit-points small { font-size: .7rem; } }
+  @media (max-width: 410px) { .benefit-points { grid-template-columns: 1fr; gap: .65rem; } .benefit-points div { min-height: auto; padding: .2rem 0 .2rem .75rem; border-left: 1px solid rgb(243 241 234 / 55%); } }
+</style>

@@ -1,0 +1,97 @@
+---
+---
+
+<div class="scroll-story" data-scroll-story data-manifest="/media/cabinet/v2/manifest.json" data-mode="static">
+  <div class="story-sticky" data-story-stage>
+    <div class="story-copy">
+      <p class="story-index" data-story-index>01 · EMPRUNT</p>
+      <h3 data-story-title>Le prêt est attribué.</h3>
+      <p data-story-body>L’accès par écran tactile ou application associe l’emprunt à un utilisateur et à un compartiment.</p>
+      <a class="story-skip" href="#solutions">Passer l’animation <span aria-hidden="true">↓</span></a>
+    </div>
+    <div class="story-visual" data-story-visual>
+      <picture class="story-poster" data-story-poster>
+        <source media="(max-width: 767px)" srcset="/media/cabinet/v2/posters/closed-mobile.webp" />
+        <img src="/media/cabinet/v2/posters/closed-desktop.webp" width="1200" height="1200" alt="Casier LENDRR assemblé, avec douze petits compartiments et quatre compartiments toute hauteur." decoding="async" />
+      </picture>
+      <canvas class="story-canvas" data-story-canvas aria-hidden="true"></canvas>
+    </div>
+  </div>
+
+  <div class="story-controls" data-story-controls hidden>
+    <p data-story-status role="status"></p>
+    <button type="button" data-story-enable>Activer la vue éclatée au défilement</button>
+  </div>
+  <div class="story-static" aria-label="Trois vues du casier LENDRR">
+    <figure>
+      <picture><source media="(max-width: 767px)" srcset="/media/cabinet/v2/posters/closed-mobile.webp" /><img src="/media/cabinet/v2/posters/closed-desktop.webp" width="1200" height="1200" alt="Casier LENDRR assemblé, vu de trois quarts." loading="lazy" decoding="async" /></picture>
+      <figcaption><strong>01 · Emprunt</strong><span>Un accès attribué à l’utilisateur.</span></figcaption>
+    </figure>
+    <figure>
+      <picture><source media="(max-width: 767px)" srcset="/media/cabinet/v2/posters/middle-mobile.webp" /><img src="/media/cabinet/v2/posters/middle-desktop.webp" width="1200" height="1200" alt="Portes du casier avancées pour montrer leur position dans la vue éclatée." loading="lazy" decoding="async" /></picture>
+      <figcaption><strong>02 · Restitution</strong><span>Le dépôt clôt l’emprunt.</span></figcaption>
+    </figure>
+    <figure>
+      <picture><source media="(max-width: 767px)" srcset="/media/cabinet/v2/posters/exploded-mobile.webp" /><img src="/media/cabinet/v2/posters/exploded-desktop.webp" width="1200" height="1200" alt="Vue éclatée du casier montrant ses portes, ses côtés, son fond et son bandeau supérieur." loading="lazy" decoding="async" /></picture>
+      <figcaption><strong>03 · Vérification</strong><span>Présence et état contrôlés au retour.</span></figcaption>
+    </figure>
+  </div>
+</div>
+
+<script>
+  import '../scripts/cabinet-scroll-story';
+</script>
+
+<style>
+  .scroll-story { position: relative; margin-top: clamp(1.5rem, 3vw, 3rem); }
+  .story-sticky { display: none; }
+  .story-controls { margin-bottom: 1.5rem; }
+  .story-controls[hidden], .scroll-story[data-mode='enhanced'] .story-controls { display: none; }
+  .story-controls p { color: var(--color-text-muted); }
+  .story-controls button { padding: .8rem 1rem; border: 0; background: var(--color-signal); color: var(--color-ink); font: inherit; font-weight: 600; cursor: pointer; }
+  .story-controls button:disabled { cursor: wait; opacity: .65; }
+  .story-static { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: clamp(.7rem, 1.5vw, 1.5rem); }
+  .story-static figure { min-width: 0; margin: 0; }
+  .story-static picture { width: 100%; aspect-ratio: 1.6; display: grid; place-items: center; overflow: hidden; background: transparent; }
+  .story-static img { width: 100%; height: 100%; object-fit: contain; }
+  .story-static figcaption { display: grid; gap: .25rem; padding-top: .5rem; }
+  .story-static figcaption strong,.story-index { font-family: var(--font-condensed); font-size: .74rem; font-weight: 800; letter-spacing: .13em; line-height: 1.15; text-transform: uppercase; }
+  .story-static figcaption span { color: var(--color-text-muted); font-size: .8rem; line-height: 1.4; }
+  .scroll-story[data-mode='enhanced'] { height: 480svh; }
+  .scroll-story[data-mode='enhanced'] .story-sticky { position: sticky; top: 0; height: 100svh; display: grid; grid-template-columns: minmax(17rem,.38fr) minmax(0,1fr); gap: clamp(1rem, 3vw, 3rem); align-items: center; padding-block: 2rem; }
+  .scroll-story[data-mode='enhanced'] .story-static { display: none; }
+  .story-copy { min-width: 0; align-self: center; padding-block: 1.5rem; }
+  .story-index { margin: 0 0 1rem; color: var(--color-text-muted); }
+  .story-copy h3 { max-width: 12ch; margin: 0; font-family: var(--font-heading); font-size: clamp(2rem, 3vw, 3.8rem); font-weight: 650; letter-spacing: -.045em; line-height: .98; }
+  .story-copy > p:not(.story-index) { max-width: 37ch; margin: 1rem 0 0; color: var(--color-text-muted); font-size: clamp(.9rem, 1vw, 1.05rem); line-height: 1.55; }
+  .story-skip { display: inline-flex; align-items: center; gap: .6rem; min-height: 42px; margin-top: 1.2rem; border-bottom: 1px solid var(--color-ink); font-size: .78rem; font-weight: 700; text-decoration: none; }
+  .story-skip span { color: var(--color-signal); font-size: 1.2em; }
+  .story-visual { position: relative; width: min(100%, 88svh, 1200px); min-width: 0; height: auto; aspect-ratio: 1; justify-self: center; }
+  .story-poster,.story-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .story-poster { display: grid; place-items: center; }
+  .story-poster img { width: 100%; height: 100%; object-fit: contain; }
+  .story-canvas { display: block; opacity: 0; pointer-events: none; }
+  .scroll-story[data-canvas-ready='true'] .story-canvas { opacity: 1; }
+  .scroll-story[data-canvas-ready='true'] .story-poster { opacity: 0; }
+  @media (max-width: 767px) {
+    .story-static { grid-template-columns: 1fr; gap: 1.2rem; }
+    .story-static picture { aspect-ratio: 1; }
+    .scroll-story[data-mode='enhanced'] { height: 320svh; }
+    .scroll-story[data-mode='enhanced'] .story-sticky { grid-template-columns: minmax(0,1fr); grid-template-rows: minmax(0,.32fr) minmax(0,.68fr); gap: 0; align-content: stretch; padding-block: .5rem; }
+    .story-copy { align-self: end; padding: .75rem 0 .25rem; }
+    .story-index { margin-bottom: .45rem; font-size: .7rem; }
+    .story-copy h3 { max-width: 16ch; font-size: clamp(1.5rem, 7vw, 2.3rem); }
+    .story-copy > p:not(.story-index) { max-width: 42ch; margin-top: .45rem; font-size: .82rem; line-height: 1.35; }
+    .story-skip { min-height: 32px; margin-top: .4rem; font-size: .72rem; }
+    .story-visual { width: min(100%, 72svh); height: min(68svh, 100%); justify-self: center; align-self: start; }
+  }
+  @media (max-height: 599px) {
+    .scroll-story[data-mode='enhanced'] .story-sticky { grid-template-columns: minmax(0,1fr) minmax(0,1.2fr); grid-template-rows: 1fr; gap: 1rem; padding-block: .5rem; }
+    .story-copy { align-self: center; padding-block: .5rem; }
+    .story-copy h3 { font-size: clamp(1.2rem,3vw,2rem); }
+    .story-copy > p:not(.story-index) { font-size: .8rem; line-height: 1.3; }
+    .story-index { margin-bottom: .5rem; }
+    .story-skip { margin-top: .5rem; min-height: 32px; }
+    .story-visual { width: min(100%,88svh); height: auto; aspect-ratio: 1; align-self: center; }
+  }
+</style>

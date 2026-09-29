@@ -1,0 +1,182 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { configurationOptions, siteContent } from '../data/site';
+const configurationImageHeights = [460, 544, 622, 699];
+---
+
+<section class="configurations section-pad section-rule" id="solutions" tabindex="-1" aria-labelledby="configuration-title">
+  <div class="shell">
+    <SectionHeading title="Configurations modulaires" id="configuration-title" />
+    <p class="config-intro">Composez un système qui s’adapte à la largeur de votre site.</p>
+    <form class="configuration-form" id="configuration-form">
+      <fieldset class="configuration-options">
+        <legend class="sr-only">Nombre d’ensembles envisagé</legend>
+        {configurationOptions.map((option, index) => {
+          const units = index + 1;
+          const compartments = units * 16;
+          return (
+            <label class={`config-option config-option--${units}`}>
+              <input class="option-radio" type="radio" name="units" value={option.value} data-label={option.label} required />
+              <span class="option-art">
+                <img src={`/media/cabinet/v2/configurations/units-${String(units).padStart(2, '0')}.webp`} width={480 * units} height={configurationImageHeights[index]} alt={`Rendu isométrique détouré de ${units} casier${units > 1 ? 's' : ''} LENDRR assemblé${units > 1 ? 's' : ''}, soit ${compartments} compartiments.`} loading="lazy" decoding="async" />
+              </span>
+              <span class="option-title">{option.label}</span>
+              <span class="option-detail">{compartments} compartiments</span>
+            </label>
+          );
+        })}
+      </fieldset>
+      <p class="config-note">{siteContent.productCaveat}</p>
+    <details class="configuration-details" id="configurer">
+      <summary>Préparer ma configuration</summary>
+      <div class="details-content">
+        <p class="details-intro">Choisissez les équipements concernés et ajoutez une précision si besoin.</p>
+        <fieldset class="use-checks">
+          <legend>Équipements à organiser <span>(facultatif)</span></legend>
+          <label><input type="checkbox" name="equipment" value="Outillage" /> Outillage</label>
+          <label><input type="checkbox" name="equipment" value="EPI" /> EPI</label>
+          <label><input type="checkbox" name="equipment" value="Matériel partagé" /> Matériel partagé</label>
+          <label><input type="checkbox" name="equipment" value="Consommables" /> Consommables</label>
+        </fieldset>
+        <label class="note-label" for="request-note">Précisions sur votre besoin <span>(facultatif)</span></label>
+        <textarea id="request-note" name="note" maxlength="500" rows="3" placeholder="Votre contexte de chantier"></textarea>
+        <p class="summary-preview" aria-live="polite">Choisissez une implantation pour préparer le récapitulatif.</p>
+        <button class="download-button" type="button" hidden>Télécharger ma demande</button>
+        <noscript><p>Notez votre implantation et vos équipements pour les transmettre à votre interlocuteur LENDRR.</p></noscript>
+        <p class="status-message" role="status" aria-live="polite"></p>
+      </div>
+    </details>
+    </form>
+  </div>
+</section>
+
+<script>
+  import { productVariant } from '../data/site';
+
+  const form = document.querySelector<HTMLFormElement>('#configuration-form');
+  const details = document.querySelector<HTMLDetailsElement>('#configurer');
+  const preview = document.querySelector<HTMLElement>('.summary-preview');
+  const button = document.querySelector<HTMLButtonElement>('.download-button');
+  const status = document.querySelector<HTMLElement>('.status-message');
+  const radios = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="units"]'));
+  const note = document.querySelector<HTMLTextAreaElement>('#request-note');
+
+  const makeSummary = () => {
+    const selected = radios.find((radio) => radio.checked);
+    if (!selected) return null;
+    const equipment = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="equipment"]:checked'))
+      .map((input) => input.value);
+    return {
+      label: selected.dataset.label ?? `${selected.value} ensemble(s)`,
+      equipment,
+      note: note?.value.trim() ?? '',
+    };
+  };
+
+  const updatePreview = () => {
+    const summary = makeSummary();
+    if (!preview) return;
+    if (!summary) {
+      preview.textContent = 'Choisissez une implantation pour préparer le récapitulatif.';
+      return;
+    }
+    const parts = [summary.label];
+    if (summary.equipment.length) parts.push(summary.equipment.join(', '));
+    preview.textContent = parts.join(' · ');
+  };
+
+  if (form && details && preview && button) {
+    button.hidden = false;
+    form.addEventListener('change', () => {
+      const selected = radios.some((radio) => radio.checked);
+      updatePreview();
+      if (selected) details.open = true;
+    });
+    note?.addEventListener('input', updatePreview);
+
+    document.querySelectorAll<HTMLAnchorElement>('a[href="#configurer"]').forEach((link) => {
+      link.addEventListener('click', () => {
+        details.open = true;
+        window.setTimeout(() => details.querySelector('summary')?.focus(), 0);
+      });
+    });
+
+    button.addEventListener('click', () => {
+      const summary = makeSummary();
+      if (!summary) {
+        if (status) status.textContent = 'Choisissez d’abord le nombre d’ensembles.';
+        details.open = true;
+        radios[0]?.focus();
+        return;
+      }
+
+      const lines = [
+        'LENDRR — préparation de configuration',
+        '',
+        `Implantation envisagée : ${summary.label}`,
+        `Produit : casier actuel à 16 compartiments (${productVariant})`,
+        `Équipements : ${summary.equipment.length ? summary.equipment.join(', ') : 'non précisés'}`,
+        `Précisions : ${summary.note || 'aucune'}`,
+        '',
+        'Dimensions, capacité des ensembles juxtaposés, prix et disponibilité à confirmer.',
+      ];
+      const objectUrl = URL.createObjectURL(new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' }));
+      const download = document.createElement('a');
+      download.href = objectUrl;
+      download.download = 'demande-lendrr.txt';
+      download.hidden = true;
+      document.body.append(download);
+      download.click();
+      download.remove();
+      window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1_000);
+      if (status) status.textContent = 'Récapitulatif préparé. Vous pouvez le transmettre à votre interlocuteur LENDRR.';
+    });
+  }
+</script>
+
+<style>
+  .config-intro { margin: .4rem 0 clamp(1.25rem, 2vw, 2rem); color: var(--color-text-muted); font-size: clamp(.9rem, 1vw, 1.05rem); }
+  .configuration-options { display: grid; grid-template-columns: 1fr 2fr 3fr 4fr; align-items: end; gap: clamp(.3rem, 1vw, 1rem); padding: 0; margin: 0; border: 0; }
+  .config-option { min-width: 0; position: relative; display: grid; justify-items: center; padding: .25rem .2rem .45rem; border-bottom: 2px solid transparent; cursor: pointer; text-align: center; transition: background-color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out); }
+  .config-option:hover { background: rgb(32 35 38 / 5%); }
+  .config-option:has(.option-radio:checked) { border-color: var(--color-signal); background: #e7e5de; }
+  .config-option:has(.option-radio:focus-visible) { outline: 2px solid var(--color-ink); outline-offset: 2px; }
+  .option-radio { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+  .option-art { width: 100%; display: grid; align-items: end; justify-items: center; }
+  .option-art img { width: 100%; height: auto; object-fit: contain; }
+  .option-title { margin-top: .65rem; font-family: var(--font-condensed); font-size: clamp(.78rem, 1vw, 1rem); font-weight: 800; letter-spacing: .1em; line-height: 1.1; text-transform: uppercase; }
+  .option-detail { margin-top: .15rem; color: var(--color-text-muted); font-family: var(--font-condensed); font-size: .62rem; font-weight: 600; letter-spacing: .05em; line-height: 1.1; text-transform: uppercase; }
+  .config-note { margin: .45rem 0 .75rem; color: var(--color-text-muted); font-size: .7rem; line-height: 1.35; }
+  .configuration-details { border-block: 1px solid var(--color-line); }
+  .configuration-details summary { min-height: 44px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-family: var(--font-condensed); font-size: .85rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; list-style: none; }
+  .configuration-details summary::-webkit-details-marker { display: none; }
+  .configuration-details summary::after { width: 1.4rem; height: 1.4rem; display: grid; place-items: center; border: 1px solid var(--color-ink); content: '+'; line-height: 1; }
+  .configuration-details[open] summary::after { content: '−'; }
+  .details-content { padding: .2rem 0 1rem; }
+  .details-intro { margin: 0 0 .7rem; color: var(--color-text-muted); font-size: .8rem; }
+  .use-checks { display: flex; flex-wrap: wrap; gap: .5rem 1rem; padding: 0; margin: 0 0 .8rem; border: 0; }
+  .use-checks legend,.note-label { width: 100%; margin-bottom: .35rem; font-size: .75rem; font-weight: 600; }
+  .use-checks legend span,.note-label span { color: var(--color-text-muted); font-weight: 400; }
+  .use-checks label { display: inline-flex; align-items: center; gap: .35rem; font-size: .75rem; }
+  .use-checks input { accent-color: var(--color-ink); width: 16px; height: 16px; }
+  .note-label { display: block; }
+  textarea { width: 100%; min-height: 72px; padding: .6rem; border: 1px solid #92979a; border-radius: 0; color: var(--color-ink); background: #fffefa; resize: vertical; font-size: .8rem; }
+  textarea::placeholder { color: #62676a; }
+  .summary-preview { margin: .6rem 0; padding: .5rem .65rem; border-left: 2px solid var(--color-signal); background: rgb(32 35 38 / 4%); font-size: .76rem; }
+  .download-button { min-height: 44px; padding: .55rem .9rem; border: 0; color: var(--color-on-signal); background: var(--color-signal); font-weight: 700; cursor: pointer; }
+  .download-button[hidden] { display: none; }
+  .download-button:hover { background: var(--color-signal-hover); }
+  .status-message { min-height: 1.3em; margin: .45rem 0 0; color: var(--color-text-muted); font-size: .75rem; }
+  @media (max-width: 900px) {
+    .configuration-options { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; align-items: stretch; }
+    .config-option { padding: .7rem .3rem; }
+    .option-art { min-height: clamp(110px, 36vw, 185px); }
+    .option-art img { max-height: clamp(110px, 36vw, 185px); }
+    .option-title { font-size: .85rem; }
+  }
+  @media (max-width: 480px) {
+    .configuration-options { grid-template-columns: minmax(0, 1fr); }
+    .option-art { min-height: 0; }
+    .option-art img { max-height: 180px; }
+  }
+</style>

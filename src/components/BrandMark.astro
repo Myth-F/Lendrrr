@@ -1,0 +1,15 @@
+---
+import { productAssets } from '../data/assets';
+
+interface Props { class?: string; }
+const { class: className } = Astro.props;
+---
+
+<a class:list={['brand', className]} href="/#top" aria-label="LENDRR — accueil">
+  <img src={productAssets.wordmark.src} width={productAssets.wordmark.width} height={productAssets.wordmark.height} alt="" />
+</a>
+
+<style>
+  .brand { display: inline-flex; width: clamp(148px, 13vw, 190px); align-items: center; flex: 0 0 auto; }
+  .brand img { width: 100%; height: auto; }
+</style>

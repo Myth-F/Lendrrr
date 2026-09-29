@@ -1,0 +1,40 @@
+---
+import ActionLink from './ActionLink.astro';
+import Icon from './Icon.astro';
+import { productAssets } from '../data/assets';
+import { siteContent } from '../data/site';
+---
+
+<section class="final-cta" aria-labelledby="final-cta-title">
+  <img src={productAssets.heroClosed.src} width={productAssets.heroClosed.width} height={productAssets.heroClosed.height} alt="" loading="lazy" decoding="async" />
+  <div class="cta-overlay" aria-hidden="true"></div>
+  <div class="cta-inner shell">
+    <h2 id="final-cta-title">{siteContent.finalHeading}</h2>
+    <div class="cta-actions">
+      <ActionLink href="#configurer">Préparer ma demande</ActionLink>
+      <a class="contact-link" href="#a-propos"><Icon name="shared" size={18} />En savoir plus</a>
+    </div>
+    <ul>
+      <li><Icon name="check" size={17} /> Vos équipements et usages</li>
+      <li><Icon name="settings" size={17} /> Un parcours à tester</li>
+      <li><Icon name="strength" size={17} /> Un pilote mesurable</li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .final-cta { position: relative; min-height: 142px; display: flex; align-items: center; overflow: hidden; color: var(--color-paper); background: #161a1c; }
+  .final-cta > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 57%; filter: grayscale(1) brightness(.3); }
+  .cta-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgb(23 27 29 / 56%), rgb(23 27 29 / 90%) 50%, rgb(23 27 29 / 84%)); }
+  .cta-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1.1fr 1.2fr .95fr; align-items: center; gap: 1.35rem; padding-block: 1.25rem; }
+  .cta-inner h2 { max-width: 19ch; margin: 0; font-family: var(--font-condensed); font-size: clamp(1.5rem, 2.2vw, 2.25rem); font-weight: 800; letter-spacing: .015em; line-height: .98; text-transform: uppercase; }
+  .cta-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; }
+  .cta-actions :global(.action-link) { min-height: 44px; white-space: nowrap; font-size: .79rem; }
+  .contact-link { min-height: 44px; display: inline-flex; align-items: center; gap: .45rem; padding: .45rem .65rem; border: 1px solid var(--color-paper); font-size: .75rem; font-weight: 600; text-decoration: none; }
+  .contact-link:hover { color: var(--color-ink); background: var(--color-paper); }
+  .cta-inner ul { display: grid; gap: .55rem; padding: 0; margin: 0; list-style: none; }
+  .cta-inner li { display: flex; align-items: center; gap: .5rem; font-size: .75rem; }
+  .cta-inner li :global(svg) { flex: 0 0 auto; }
+  @media (max-width: 1023px) { .cta-inner { grid-template-columns: 1fr 1fr; } .cta-inner ul { grid-column: 1 / -1; grid-template-columns: repeat(3,minmax(0,1fr)); } }
+  @media (max-width: 767px) { .final-cta { min-height: 0; } .cta-inner { grid-template-columns: 1fr; gap: 1rem; padding-block: 1.6rem; } .cta-inner h2 { max-width: 18ch; } .cta-inner ul { grid-column: auto; grid-template-columns: 1fr; } .cta-actions { align-items: stretch; } .contact-link { flex: 1; justify-content: center; } }
+</style>
